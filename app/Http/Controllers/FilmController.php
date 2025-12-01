@@ -88,7 +88,7 @@ class FilmController extends Controller
                 $films_filtered[] = $film;
             }
         }
-        
+
         // Construcción dinámica del título
         $filters = [];
         if ($year) $filters[] = "año";
@@ -99,5 +99,34 @@ class FilmController extends Controller
         $title = "Listado filtrado por: " . implode(", ", $filters);
 
         return view("films.list", ["films" => $films_filtered, "title" => $title]);
+    }
+
+    public function listFilmsOrderedByGenre()
+    {
+        $films = FilmController::readFilms();
+        // Ordenar por género alfabéticamente
+        usort($films, function ($a, $b) {
+            return strcmp(strtolower($a['genre']), strtolower($b['genre']));
+        });
+        $title = "Películas ordenadas por género";
+        return view("films.list", [
+            "films" => $films,
+            "title" => $title
+        ]);
+    }
+
+
+    public function listFilmsOrderedByYear()
+    {
+        $films = FilmController::readFilms();
+        // Ordenar por año de menor a mayor
+        usort($films, function ($a, $b) {
+            return $a['year'] <=> $b['year'];
+        });
+        $title = "Películas ordenadas por año";
+        return view("films.list", [
+            "films" => $films,
+            "title" => $title
+        ]);
     }
 }
