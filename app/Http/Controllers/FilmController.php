@@ -105,8 +105,8 @@ class FilmController extends Controller
     {
         $films = FilmController::readFilms();
         // Ordenar por género alfabéticamente
-        usort($films, function ($a, $b) {
-            return strcmp(strtolower($a['genre']), strtolower($b['genre']));
+        usort($films, function ($film1, $film2) {
+            return strcmp(strtolower($film1['genre']), strtolower($film2['genre']));
         });
         $title = "Películas ordenadas por género";
         return view("films.list", [
@@ -120,9 +120,18 @@ class FilmController extends Controller
     {
         $films = FilmController::readFilms();
         // Ordenar por año de menor a mayor
-        usort($films, function ($a, $b) {
-            return $a['year'] <=> $b['year'];
+        usort($films, function ($film1, $film2) {
+
+            // Si los años son iguales, devuelve 0
+            if ($film1['year'] == $film2['year']) {
+                return 0;
+            }
+
+            // Si el año de A es menor que el de B, devuelve -1 (va antes)
+            // Si no, devuelve 1 (va después)
+            return ($film1['year'] < $film2['year']) ? -1 : 1;
         });
+
         $title = "Películas ordenadas por año";
         return view("films.list", [
             "films" => $films,
@@ -137,7 +146,6 @@ class FilmController extends Controller
         $films = self::readFilms();
 
         $counter = count($films);
-    return view('count', ["count" => $counter, "title" => $title]);
-        
+        return view('count', ["count" => $counter, "title" => $title]);
     }
 }
