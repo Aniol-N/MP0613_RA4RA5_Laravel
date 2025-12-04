@@ -129,4 +129,15 @@ class FilmController extends Controller
             "title" => $title
         ]);
     }
+
+    public function countFilms()
+    {
+        $counter = 0;
+        $title = "Contar Películas";
+        $films = self::readFilms();
+
+        $counter = count($films);
+    return view('count', ["count" => $counter, "title" => $title]);
+        
+    }
 }
