@@ -22,11 +22,19 @@ Route::get('/', function () {
 Route::middleware('year')->group(function () {
     Route::group(['prefix' => 'filmout'], function () {
         // Routes included with prefix "filmout"
+        Route::get('createFilm/', [FilmController::class, "registerNewFilm"])->name('createFilm');
         Route::get('oldFilms/{year?}', [FilmController::class, "listOldFilms"])->name('oldFilms');
         Route::get('newFilms/{year?}', [FilmController::class, "listNewFilms"])->name('newFilms');
         Route::get('filmsOrderedByGenre', [FilmController::class, "listFilmsOrderedByGenre"])->name('filmsOrderedByGenre');
         Route::get('filmsOrderedByYear', [FilmController::class, "listFilmsOrderedByYear"])->name('filmsOrderedByYear');
         Route::get('films/{year?}/{genre?}', [FilmController::class, "listFilms"])->name('listFilms');
         Route::get('countFilms', [FilmController::class, "countFilms"])->name('countFilms');
+    });
+});
+
+Route::middleware('name')->group(function () {
+    Route::group(['prefix' => 'filmin'], function () {
+    // POST route to receive film data; validated by 'url' middleware
+    Route::post('film', [FilmController::class, 'createFilm'])->name('film')->middleware('url');
     });
 });
