@@ -15,10 +15,10 @@ class FilmFakerSeeder extends Seeder
         $faker = Faker::create();
         for ($i = 0; $i < 10; $i++) {
             DB::table('films')->insert([
-                'name'       => $faker->realText(50),
+                'name'       => substr($faker->realText(50), 0, 100),
                 'year'       => $faker->year(),
-                'genre'      => $faker->randomElement(['Drama', 'Acción', 'Comedia', 'Terror', 'Sci-Fi']),
-                'country'    => $faker->country(),
+                'genre'      => substr($faker->word, 0, 50),
+                'country'    => substr($faker->country, 0, 30),
                 'duration'   => $faker->numberBetween(80, 240),
                 'img_url'    => $faker->imageUrl(640, 480, 'movies', true),
                 'created_at' => now(),
