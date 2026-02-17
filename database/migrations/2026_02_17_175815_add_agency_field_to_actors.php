@@ -9,10 +9,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('actors', function (Blueprint $table) {
-            $table->string('agency')->nullable()->after('name');
+            $table->string('agency')->nullable();
         });
     }
-
     public function down(): void
     {
         Schema::table('actors', function (Blueprint $table) {
