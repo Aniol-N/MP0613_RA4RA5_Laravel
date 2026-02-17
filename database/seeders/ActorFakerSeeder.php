@@ -15,6 +15,7 @@ class ActorFakerSeeder extends Seeder
         for ($i = 0; $i < 10; $i++) {
             DB::table('actors')->insert([
                 'name' => substr($faker->firstName, 0, 30),
+                'agency' => substr($faker->company, 0, 30),
                 'surname' => substr($faker->lastName, 0, 30),
                 'birthdate' => $faker->date('Y-m-d'),
                 'country' => substr($faker->country, 0, 30),
