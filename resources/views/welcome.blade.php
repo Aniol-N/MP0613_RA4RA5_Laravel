@@ -54,4 +54,12 @@
             <li><a href="{{ route('countFilms') }}">Contar películas</a></li>
         </ul>
     </div>
+    <h1 class="mt-4 h1-toggle">LISTAR ACTORES</h1>
+    <div class="collapsible-content">
+        <ul>
+            <li><a href="/filmout/#">Actores</a></li>
+            <li><a href="/filmout/#">Actores ordenadas por decada</a></li>
+            <li><a href="{{ route('countActors') }}">Contar actores</a></li>
+        </ul>
+    </div>
 @endsection
