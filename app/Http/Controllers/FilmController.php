@@ -2,41 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use App\Models\Film;
 
 class FilmController extends Controller
 {
 
     public static function registerNewFilm()
     {
-        $films = Storage::json('/public/films.json');
-
-        $name = request('name');
-        $year = request('year');
-        $genre = request('genre');
-        $img_url = request('img_url');
-        $country = request('country');
-        $duration = request('duration');
-
-        $films[] = [
-            'name' => $name,
-            'year' => $year,
-            'genre' => $genre,
-            'img_url' => $img_url,
-            'country' => $country,
-            'duration' => $duration
-        ];
-        Storage::disk('local')->put('/public/films.json', json_encode($films));
         return view('welcome');
     }
 
     public static function readFilms(): array
     {
-        $films = Storage::json('/public/films.json');
-        return $films;
+        $films = Film::all();
+        return $films ->toArray();
     }
-  
+
     public function listOldFilms($year = null)
     {
         $old_films = [];
@@ -188,24 +170,20 @@ class FilmController extends Controller
             return redirect('/')->with('error', 'Error: Ya existe una pelicula con este nombre.');
         }
 
-        $films = Storage::json('/public/films.json');
-
         $year = $request->input('year');
         $genre = $request->input('genre');
         $img_url = $request->input('img_url');
         $country = $request->input('country');
         $duration = $request->input('duration');
 
-        $films[] = [
-            'name' => $name,
-            'year' => $year,
-            'genre' => $genre,
-            'img_url' => $img_url,
-            'country' => $country,
-            'duration' => $duration
-        ];
-
-        Storage::disk('local')->put('/public/films.json', json_encode($films));
+        $film = new Film();
+        $film->name = $name;
+        $film->year = $year;
+        $film->genre = $genre;
+        $film->img_url = $img_url;
+        $film->country = $country;
+        $film->duration = $duration;
+        $film->save();
 
         // After adding, show all films
         return $this->listFilms();
@@ -216,8 +194,6 @@ class FilmController extends Controller
      */
     public function storeFilm(Request $request)
     {
-        $films = Storage::json('/public/films.json');
-
         $name = $request->input('name');
         $year = $request->input('year');
         $genre = $request->input('genre');
@@ -225,16 +201,14 @@ class FilmController extends Controller
         $country = $request->input('country');
         $duration = $request->input('duration');
 
-        $films[] = [
-            'name' => $name,
-            'year' => $year,
-            'genre' => $genre,
-            'img_url' => $img_url,
-            'country' => $country,
-            'duration' => $duration
-        ];
-
-        Storage::disk('local')->put('/public/films.json', json_encode($films));
+        $film = new Film();
+        $film->name = $name;
+        $film->year = $year;
+        $film->genre = $genre;
+        $film->img_url = $img_url;
+        $film->country = $country;
+        $film->duration = $duration;
+        $film->save();
 
         return redirect('/')->with('success', 'Película agregada correctamente.');
     }
