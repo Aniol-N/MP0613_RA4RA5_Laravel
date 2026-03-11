@@ -57,9 +57,8 @@
     <h1 class="mt-4 h1-toggle">LISTAR ACTORES</h1>
     <div class="collapsible-content">
         <ul>
-            <li><a href="/filmout/#">Actores</a></li>
-            <li><a href="/filmout/#">Actores ordenadas por decada</a></li>
-            <li><a href="{{ route('countActors') }}">Contar actores</a></li>
+            <li><a href="{{ route('searchActorsByDecade') }}">Buscar actores por década</a></li>
+            <li><a href="{{ route('listActors') }}">Listar todos los actores</a></li>
         </ul>
     </div>
 @endsection
