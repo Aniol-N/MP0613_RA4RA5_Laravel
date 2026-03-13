@@ -64,4 +64,13 @@ class ActorController extends Controller
         $counter = count($actors);
         return view('actors.count', ["count" => $counter, "title" => $title]);
     }
+
+    public function deleteActor($id)
+    {
+        $actor = Actor::find($id);
+        if ($actor) {
+            $actor->delete();
+        }
+        return redirect()->route('listActors');
+    }
 }
