@@ -55,4 +55,13 @@ class ActorController extends Controller
         $title = "Actores nacidos en la década de los $decade";
         return view('actors.list', ["actors" => $actors_filtered, "title" => $title]);
     }
+    public function countActors()
+    {
+        $counter = 0;
+        $title = "Contar Actores";
+        $actors = self::readActors();
+
+        $counter = count($actors);
+        return view('actors.count', ["count" => $counter, "title" => $title]);
+    }
 }
