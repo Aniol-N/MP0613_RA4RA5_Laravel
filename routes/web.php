@@ -35,15 +35,17 @@ Route::middleware('year')->group(function () {
 
 Route::middleware('name')->group(function () {
     Route::group(['prefix' => 'filmin'], function () {
-    // POST route to receive film data; validated by 'url' middleware
-    Route::post('film', [FilmController::class, 'createFilm'])->name('film')->middleware('url');
+        // POST route to receive film data; validated by 'url' middleware
+        Route::post('film', [FilmController::class, 'createFilm'])->name('film')->middleware('url');
     });
 });
 
 Route::middleware('year')->group(function () {
     Route::group(['prefix' => 'actorout'], function () {
         Route::get('actors', [ActorController::class, "listActors"])->name('listActors');
+        // Route to list actors by decade
         Route::get('actorsByDecade/{decade?}', [ActorController::class, "listActorsByDecade"])->name('actorsByDecade');
         Route::get('searchByDecade', [ActorController::class, "searchActorsByDecade"])->name('searchActorsByDecade');
+        Route::get('countActors', [ActorController::class, "countActors"])->name('countActors');
     });
 });
