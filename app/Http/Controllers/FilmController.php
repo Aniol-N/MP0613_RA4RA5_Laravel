@@ -16,7 +16,7 @@ class FilmController extends Controller
     public static function readFilms(): array
     {
         $films = Film::all();
-        return $films ->toArray();
+        return $films->toArray();
     }
 
     public function listOldFilms($year = null)
@@ -141,7 +141,7 @@ class FilmController extends Controller
         $films = self::readFilms();
 
         $counter = count($films);
-        return view('count', ["count" => $counter, "title" => $title]);
+        return view('films.count', ["count" => $counter, "title" => $title]);
     }
 
     /**

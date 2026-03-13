@@ -59,6 +59,7 @@
         <ul>
             <li><a href="{{ route('searchActorsByDecade') }}">Buscar actores por década</a></li>
             <li><a href="{{ route('listActors') }}">Listar todos los actores</a></li>
+            <li><a href="{{ route('countActors') }}">Contar actores</a></li>
         </ul>
     </div>
 @endsection
